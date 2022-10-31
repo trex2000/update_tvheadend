@@ -54,12 +54,12 @@ fi
 echo "Patching tvheadend"
 git config apply.whitespace nowarn
 git apply $work_dir/tvheadend43.patch
-./configure --disable-libfdkaac_static --disable-libtheora_static --disable-libopus_static --disable-libvorbis_static --disable-libvpx_static --disable-libx264_static --disable-libx265_static --disable-libfdkaac --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265  --disable-dbus_1 --disable-bintray_cache  --disable-hdhomerun_static --disable-hdhomerun_client --enable-libav --enable-pngquant --enable-trace --enable-vaapi --infodir=/usr/share/info   --cc=cc --arch=x86_x64 --platform=linux --python=python3 
+./configure --disable-libfdkaac_static --disable-libtheora_static --disable-libopus_static --disable-libvorbis_static --disable-libvpx_static --disable-libx264_static --disable-libx265_static --disable-libfdkaac --enable-libopus --enable-libvorbis --enable-libvpx --enable-libx264 --enable-libx265  --disable-dbus_1 --disable-bintray_cache  --disable-hdhomerun_static --disable-hdhomerun_client --enable-libav --enable-pngquant --enable-trace --enable-vaapi --infodir=/usr/share/info   --cc=cc --arch=x86_x64 --platform=linux --python=python3  --prefix=/usr/local
 make -j$(nproc)
-exit
 ./bootstrap
 ./configure
 make
+systemctl stop tvheadend
 make install
 systemctl daemon-reload
-systemctl restart tvheadend
+systemctl start tvheadend
