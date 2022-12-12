@@ -6,6 +6,7 @@ libdvbcsa_url="https://github.com/glenvt18/"
 #script area
 DIRECTORY_TVHEADEND="${work_dir}/tvheadend"
 DIRECTORY_LIBDVBCSA="${work_dir}/libdvbcsa"
+filename="backup_hts"`date +"_%d-%m-%Y"`".zip" 
 cd $work_dir
 
 
@@ -61,5 +62,13 @@ make -j$(nproc)
 make
 systemctl stop tvheadend
 make install
+echo Creating backup
+cd /home/hts
+zip -0  $filename -r ./
+if grep -qs '/mnt/500gb' /proc/mounts; then
+    mv $filename /mnt/500gb/backup/$filename
+else
+    echo "Network drive not mounted. Cannot copy backup"
+fi
 systemctl daemon-reload
 systemctl start tvheadend
