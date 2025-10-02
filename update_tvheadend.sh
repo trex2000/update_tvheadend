@@ -21,7 +21,8 @@ if curl -s -m 5 --head  --request GET $libdvbcsa_url | grep "200" > /dev/null; t
     else	
 	echo "Existing installation of LibDvbCSA. Fetching updates"
 	cd $DIRECTORY_LIBDVBCSA
-	git fetch  "${libdvbcsa_url}libdvbcsa.git"
+	git reset --hard HEAD
+	git pull  "${libdvbcsa_url}libdvbcsa.git"
     fi
 else
     echo Github is down, cannot update LibDvbCSA
@@ -46,7 +47,8 @@ if curl -s -m 5 --head  --request GET $tvheadend_url | grep "200" > /dev/null; t
     else	
 	echo "Existing installation of Tvheadend. Fetching updates"
 	cd $DIRECTORY_TVHEADEND
-	git fetch  
+	git reset --hard HEAD
+	git pull  
     fi
 else
     echo Github is down, cannot update tvheadend
